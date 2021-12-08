@@ -10,6 +10,9 @@ public class ConfigReader {
 	private Properties properties;
 	private String propertyFilePath = "Config//Config.properties";
 	
+	/**
+	 * Method to read the values from property file 
+	 */
 	public ConfigReader() {
 
 		BufferedReader reader;
@@ -28,17 +31,28 @@ public class ConfigReader {
 		}
 
 	}
-
+	/**
+	 * Method get the browser details from property file 
+	 */
 	public String getBrowser() {
 		return properties.getProperty("browser");
 
 	}
+	/**
+	 * Method choose driver path based on browser from property file 
+	 */
 	public String getDriverPathChrome() {
 		return properties.getProperty("driver_path_chrome");
 	}
+	/**
+	 * Method choose driver path based on browser from property file 
+	 */
 	public String getDriverPathFireFox() {
 		return properties.getProperty("driver_path_firefox");
 	}
+	/**
+	 * Method to get application url from property file 
+	 */
 	public String getApplicationUrl() {
 		return properties.getProperty("url");
 

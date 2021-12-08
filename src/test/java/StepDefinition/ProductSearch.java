@@ -28,17 +28,22 @@ public class ProductSearch {
 	ConfigReader reader = new ConfigReader();
 	ScreenRecorderUtil screenRecorder;
 	ProductSearchPages pages;
+	WebElement logo;
+	/**
+	 * Method that does browser setup and load application 
+	 */
 	@Before
-	public void setup() throws InterruptedException {
+	public void setup() throws Exception {
+		screenRecorder.startRecord("user Search for product");
 		driver = baseClass.chooseBrowser();
 		baseClass.openApplication(driver);
 	}
 
 	@Given("^user enters into application")
-	public void user_enters_into_application() throws Exception {
-		screenRecorder.startRecord("user Search for product");
+	public void user_enters_into_application() {
+		
 		pages = new ProductSearchPages(driver);
-		WebElement logo= pages.verifyLogoLoaded();		
+		 logo= pages.verifyLogoLoaded();		
 		baseClass.waitForElementToDisplay(driver, logo);
 
 	}
@@ -67,7 +72,7 @@ public class ProductSearch {
 	}
 	@Then("user verifies product contains {string}")
 	//@Then("user verifies product contains \"([^\"]*)\"")
-	public void user_verifies_product_contains(String productCode) throws Exception {
+	public void user_verifies_product_contains(String productCode) throws InterruptedException {
 		pages = new ProductSearchPages(driver);
 		boolean status = pages.verifyProduct(productCode);
 		Thread.sleep(3000);
@@ -76,12 +81,13 @@ public class ProductSearch {
 			Assert.assertEquals(status, true);
 			
 		}
-		screenRecorder.stopRecord();
+		
 	}
 
 	@After
-	public void tearDown() {
+	public void tearDown() throws Exception {
 		driver.close();
 		driver.quit();
+		screenRecorder.stopRecord();
 	}
 }
